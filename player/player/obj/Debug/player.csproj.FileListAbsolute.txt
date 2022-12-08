@@ -1,0 +1,10 @@
+C:\Users\qinxi\source\repos\player\player\bin\Debug\player.exe.config
+C:\Users\qinxi\source\repos\player\player\bin\Debug\player.exe
+C:\Users\qinxi\source\repos\player\player\bin\Debug\player.pdb
+C:\Users\qinxi\source\repos\player\player\obj\Debug\player.csprojAssemblyReference.cache
+C:\Users\qinxi\source\repos\player\player\obj\Debug\player.Form1.resources
+C:\Users\qinxi\source\repos\player\player\obj\Debug\player.Properties.Resources.resources
+C:\Users\qinxi\source\repos\player\player\obj\Debug\player.csproj.GenerateResource.cache
+C:\Users\qinxi\source\repos\player\player\obj\Debug\player.csproj.CoreCompileInputs.cache
+C:\Users\qinxi\source\repos\player\player\obj\Debug\player.exe
+C:\Users\qinxi\source\repos\player\player\obj\Debug\player.pdb
