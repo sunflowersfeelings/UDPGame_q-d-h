@@ -38,3 +38,13 @@ C:\Users\qinxi\Desktop\数据通讯\Game\Game\Game\obj\Debug\Game.csproj.Generat
 C:\Users\qinxi\Desktop\数据通讯\Game\Game\Game\obj\Debug\Game.csproj.CoreCompileInputs.cache
 C:\Users\qinxi\Desktop\数据通讯\Game\Game\Game\obj\Debug\Game.exe
 C:\Users\qinxi\Desktop\数据通讯\Game\Game\Game\obj\Debug\Game.pdb
+C:\Users\qinxi\Desktop\数据通讯\Game\Game\UDPGame_q-d-h\Game\bin\Debug\Game.exe.config
+C:\Users\qinxi\Desktop\数据通讯\Game\Game\UDPGame_q-d-h\Game\bin\Debug\Game.exe
+C:\Users\qinxi\Desktop\数据通讯\Game\Game\UDPGame_q-d-h\Game\bin\Debug\Game.pdb
+C:\Users\qinxi\Desktop\数据通讯\Game\Game\UDPGame_q-d-h\Game\obj\Debug\Game.csprojAssemblyReference.cache
+C:\Users\qinxi\Desktop\数据通讯\Game\Game\UDPGame_q-d-h\Game\obj\Debug\Game.Start.resources
+C:\Users\qinxi\Desktop\数据通讯\Game\Game\UDPGame_q-d-h\Game\obj\Debug\Game.Properties.Resources.resources
+C:\Users\qinxi\Desktop\数据通讯\Game\Game\UDPGame_q-d-h\Game\obj\Debug\Game.csproj.GenerateResource.cache
+C:\Users\qinxi\Desktop\数据通讯\Game\Game\UDPGame_q-d-h\Game\obj\Debug\Game.csproj.CoreCompileInputs.cache
+C:\Users\qinxi\Desktop\数据通讯\Game\Game\UDPGame_q-d-h\Game\obj\Debug\Game.exe
+C:\Users\qinxi\Desktop\数据通讯\Game\Game\UDPGame_q-d-h\Game\obj\Debug\Game.pdb

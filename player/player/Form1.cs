@@ -53,6 +53,7 @@ namespace player
             playeripep = new IPEndPoint(playerIP, playerport);
             ServerSocket = new Socket(AddressFamily.InterNetwork, SocketType.Dgram, ProtocolType.Udp);
             ServerSocket.Bind(playeripep);
+            textBox2.Text = playerport.ToString();
 
         }
         public void StartReceive()
@@ -212,12 +213,13 @@ namespace player
                     }
                     if (isOver)//是否结束
                      dataSend = "over:" + playerport.ToString();                      
-                }       
+                }
+             
                  data1 = System.Text.Encoding.UTF8.GetBytes(dataSend);
                 SocketClient.SendTo(data1, ipep);
                 // Thread.Sleep(1000);
-                
-              
+                textBox3.Text = dataSend;
+
             }
     
         }
@@ -251,23 +253,25 @@ namespace player
 
         private void handleData(string receiveString)//用于处理数据
         {
+           
             receiveString = receiveString.TrimEnd('\0');
+            textBox4.Text = receiveString;
             if (receiveString != "waiting")
             {
                 string[] newstr = receiveString.Split(new char[] { ',' }, StringSplitOptions.RemoveEmptyEntries);
                 isFirstPrint= true;
                 bool isGetPoker = false;
-                if (newstr[0] == "pleaseput" && isCanPut == false)
+                if (newstr[0] == "pleaseput" )
                 {
 
-                    MessageBox.Show("到您出牌了");
+                   // MessageBox.Show("到您出牌了");
                     isCanPut = true;
                    // isPutPocker = true;
                     isReceive = false;
                 }
                 else if (newstr[0] != "pleaseput")
                 {
-                    if (newstr[0] != "Pub"&& newstr[0] != "over")
+                    if (newstr[0] != "Pub"&& newstr[0] != "over"&& newstr[0] != "can" && newstr[0] != "cannot")
                     {
                         isReceive = false;
                         userpoker.Clear();
@@ -352,15 +356,23 @@ namespace player
                     }
                     else if(newstr [0]=="can")
                     {
-                        isCanReceive = 1;
-                        isReceive = false;
+                        isReceivePocker = false;
+                        isCanReceive = 0;
+                        isPutPocker = false;
+                        isFirstPrint = false;
+                        isCanPut = false;
+                        isReceive = true;
 
                     }
                     else if(newstr[0]=="cannot")
                     {
-                        MessageBox.Show("当前没有可收的牌");
-                        isCanReceive = 2;
-                        isReceive = false;
+                        //MessageBox.Show("当前没有可收的牌");
+                        isReceivePocker = false;
+                        isCanReceive = 0;
+                        isPutPocker = false;
+                        isFirstPrint = false;
+                        isCanPut = false;
+                        isReceive = true;
                     }
                     else if (newstr[0] == "over")
                     {
@@ -391,7 +403,7 @@ namespace player
                 isFirstClick = false;
                 StartMonitor();
                 IP = IPAddress.Parse(textBox1.Text);
-                port = Convert.ToInt32(textBox2.Text);
+                port = 7000;
                 ipep = new IPEndPoint(IP, port);
                 SocketClient = new Socket(AddressFamily.InterNetwork, SocketType.Dgram, ProtocolType.Udp);
               
