@@ -40,6 +40,7 @@ namespace player
         int isCanReceive = 0;
         bool isOver=false;
         List<int> userpoker = new List<int>();
+        List<int> usercount = new List<int>();
         int record_pokercount = 0;
         public Form1()
         {
@@ -269,13 +270,31 @@ namespace player
                    // isPutPocker = true;
                     isReceive = false;
                 }
+                else if (newstr[0] == "pokercount")
+                {
+                    usercount.Clear();
+                    textBox5.Text = "";
+                    for (int i = 1; i < newstr.Length; i++)
+                    {
+                        usercount.Add(Convert.ToInt32(newstr[i]));
+              
+                    }
+                    for (int i = 0; i < usercount.Count; i++)
+                        textBox5.Text = textBox5.Text + usercount[i].ToString() + ",";
+                    isReceivePocker = false;
+                    isCanReceive = 0;
+                    isPutPocker = false;
+                    isFirstPrint = false;
+                    isCanPut = false;
+                    isReceive = true;
+                }
                 else if (newstr[0] != "pleaseput")
                 {
                     if (newstr[0] != "Pub"&& newstr[0] != "over"&& newstr[0] != "can" && newstr[0] != "cannot")
                     {
                         isReceive = false;
                         userpoker.Clear();
-                        for (int i = 0; i < newstr.Length; i++)
+                        for (int i = 1; i < newstr.Length; i++)
                         {
                             isGetPoker = false;
                             foreach (int m in userpoker)//遍历牌堆中牌寻找是否有相同牌
@@ -291,7 +310,6 @@ namespace player
                             else
                                 break;
                         }
-
                         if (record_pokercount != userpoker.Count)//当收来的数组发生变化说明出牌成功且接收到出了之后的牌
                         {
                             isPutPocker = false;
@@ -304,7 +322,6 @@ namespace player
                             }
                             record_pokercount = userpoker.Count;
                         }
-
                         isReceivePocker = false;
                         isCanReceive = 0;
                         isPutPocker = false;

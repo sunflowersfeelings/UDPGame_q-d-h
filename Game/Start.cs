@@ -220,6 +220,7 @@ namespace Game
                         receivemessage.ReceiveData();                   
                     }
                     users[temp.Mark - 2].isPut = false;
+
                 }
             }
         }
@@ -276,6 +277,17 @@ namespace Game
             }
             temp.isDeal = false;
         }
+        private void printCount(string temp_string, user temp)//发送牌组
+        {          
+            while (true)
+            {
+                sendmessage.SendData(temp_string, ref temp.socket, ref temp.ipep);
+                receivemessage.ReceiveData();
+                if (temp.isDeal)
+                    break;
+            }
+            temp.isDeal = false;
+        }
         private void startgame()//游戏进行中
         {
             Rank=new List<user>();
@@ -305,6 +317,19 @@ namespace Game
                             {
                                 temp_string = "Pub,";
                                 printList(temp_string, Pubpoker, users[i]);
+                            }
+                            temp_string = "";
+                            printList(temp_string, temp.userpoker, temp);
+                            temp_string = "pokercount,";
+                            for (int i = 0; i < users.Count; i++)
+                            {
+                                //循环体list[i]
+                                temp_string = temp_string + users[i].userpoker.Count.ToString() + ",";
+                            }
+
+                            for (int i = 0; i < users.Count; i++)//向每一个玩家发送其他玩家的牌数
+                            {
+                                printCount(temp_string, temp);
                             }
                             temp_string = "";
                             printList(temp_string, temp.userpoker, temp);
@@ -340,6 +365,17 @@ namespace Game
                                 temp_string = "Pub,";
                                 printList(temp_string, Pubpoker, users[i]);
                             }
+                            temp_string = "pokercount,";
+                            for (int i = 0; i < users.Count; i++)
+                            {
+                                //循环体list[i]
+                                temp_string = temp_string + users[i].userpoker.Count.ToString() + ",";
+                            }
+                          
+                            for (int i = 0; i < users.Count; i++)//向每一个玩家发送其他玩家的牌数
+                            {
+                                printCount(temp_string, temp);
+                            }
                             temp_string = "";
                             printList(temp_string, temp.userpoker, temp);
                            
@@ -351,8 +387,17 @@ namespace Game
                     {
                         temp_string = "";
                         printList(temp_string, temp.userpoker, temp);
-                    }
+                        temp_string = "pokercount,";
+                        for (int i = 0; i < users.Count; i++)
+                        {
+                            //循环体list[i]
+                            temp_string = temp_string + users[i].userpoker.Count.ToString() + ",";
+                        }
+                        printCount(temp_string, temp);
+                        
+                    }                
                 }
+               
                 num++;
             }
         }
