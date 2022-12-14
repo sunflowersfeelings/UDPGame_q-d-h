@@ -65,13 +65,17 @@ namespace Game
                 while (true)
                 {
                     receivemessage.ReceiveData();
-                    for (int i = 0; i < playernumber; i++)
+                    is_All_Start = false;
+                    if (playernumber > 1)
                     {
-                        is_All_Start = true;
-                        if (users[i].isStart == false)//有玩家点了加入游戏但没点开始
+                        for (int i = 0; i < playernumber; i++)
                         {
-                            is_All_Start = false;
-                            break;
+                            is_All_Start = true;
+                            if (users[i].isStart == false)//有玩家点了加入游戏但没点开始
+                            {
+                                is_All_Start = false;
+                                break;
+                            }
                         }
                     }
                     if (is_All_Start)
@@ -329,7 +333,7 @@ namespace Game
 
                             for (int i = 0; i < users.Count; i++)//向每一个玩家发送其他玩家的牌数
                             {
-                                printCount(temp_string, temp);
+                                printCount(temp_string, users[i]);
                             }
                             temp_string = "";
                             printList(temp_string, temp.userpoker, temp);
@@ -374,7 +378,7 @@ namespace Game
                           
                             for (int i = 0; i < users.Count; i++)//向每一个玩家发送其他玩家的牌数
                             {
-                                printCount(temp_string, temp);
+                                printCount(temp_string, users[i]);
                             }
                             temp_string = "";
                             printList(temp_string, temp.userpoker, temp);

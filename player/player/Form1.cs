@@ -40,8 +40,10 @@ namespace player
         int isCanReceive = 0;
         bool isOver=false;
         List<int> userpoker = new List<int>();
+        List<int> Pubpoker = new List<int>();
         List<int> usercount = new List<int>();
-        int record_pokercount = 0;
+        int record_pokercount1 = 0;//记录自己的手牌数
+        int record_pokercount2 = 0;//记录牌桌数
         public Form1()
         {
             InitializeComponent();
@@ -310,7 +312,7 @@ namespace player
                             else
                                 break;
                         }
-                        if (record_pokercount != userpoker.Count)//当收来的数组发生变化说明出牌成功且接收到出了之后的牌
+                        if (record_pokercount1 != userpoker.Count)//当收来的数组发生变化说明出牌成功且接收到出了之后的牌
                         {
                             isPutPocker = false;
                             isReceive = true;
@@ -320,7 +322,7 @@ namespace player
                                 listBox2.Items.Add(userpoker[i]);
 
                             }
-                            record_pokercount = userpoker.Count;
+                            record_pokercount1 = userpoker.Count;
                         }
                         isReceivePocker = false;
                         isCanReceive = 0;
@@ -332,11 +334,11 @@ namespace player
                     else if (newstr[0] == "Pub" )
                     {
                         isReceive = false;
-                        userpoker.Clear();
+                        Pubpoker.Clear();
                         for (int i = 1; i < newstr.Length; i++)
                         {
                             isGetPoker = false;
-                            foreach (int m in userpoker)//遍历牌堆中牌寻找是否有相同牌
+                            foreach (int m in Pubpoker)//遍历牌堆中牌寻找是否有相同牌
                             {
                                 if (Convert.ToInt32(newstr[i]) == m)
                                 {
@@ -345,22 +347,22 @@ namespace player
                                 }
                             }
                             if (!isGetPoker)
-                                userpoker.Add(Convert.ToInt32(newstr[i]));
+                                Pubpoker.Add(Convert.ToInt32(newstr[i]));
                             else
                                 break;
                         }
 
-                        if (record_pokercount != userpoker.Count)//当收来的数组发生变化说明出牌成功且接收到出了之后的牌
+                        if (record_pokercount2 != Pubpoker.Count)//当收来的数组发生变化说明出牌成功且接收到出了之后的牌
                         {
                             isPutPocker = false;
                             isReceive = true;
                             listBox1.Items.Clear();
-                            for (int i = 0; i < userpoker.Count; i++)
+                            for (int i = 0; i < Pubpoker.Count; i++)
                             {
-                                listBox1.Items.Add(userpoker[i]);
+                                listBox1.Items.Add(Pubpoker[i]);
 
                             }
-                            record_pokercount = userpoker.Count;
+                            record_pokercount2 = Pubpoker.Count;
                         }
 
 
