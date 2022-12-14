@@ -308,87 +308,95 @@ namespace Game
                         Rank.Add(temp);
                         users.Remove(temp);
                     }
-                    if (num != 0)//不是第一次发牌，则需要判定玩家有没有选择出牌，有没有出牌的条件:上一位玩家已出牌）
+                   if(num != 0)//不是第一次发牌，则需要判定玩家有没有选择出牌，有没有出牌的条件:上一位玩家已出牌）
                     {
-                        CanIput(temp, num);       
-                        if (temp.isPut)
+                        temp.isSend = 1;
+                        while (temp.isSend ==1)
                         {
-                            calculate.play_remove(Pubpoker, temp.userpoker, temp.User_isFailedFlag);
-                            game_rank(temp);
-                            temp.isSend = 0;
-                            
-                            for (int i = 0; i < users.Count; i++)//向每一个玩家展示牌桌
+                            CanIput(temp, num);
+                            if (temp.isPut)
                             {
-                                temp_string = "Pub,";
-                                printList(temp_string, Pubpoker, users[i]);
-                            }
-                            temp_string = "";
-                            printList(temp_string, temp.userpoker, temp);
-                            temp_string = "pokercount,";
-                            for (int i = 0; i < users.Count; i++)
-                            {
-                                //循环体list[i]
-                                temp_string = temp_string + users[i].userpoker.Count.ToString() + ",";
-                            }
+                                calculate.play_remove(Pubpoker, temp.userpoker, temp.User_isFailedFlag);
+                                game_rank(temp);
+                                temp.isSend = 2;
 
-                            for (int i = 0; i < users.Count; i++)//向每一个玩家发送其他玩家的牌数
-                            {
-                                printCount(temp_string, users[i]);
-                            }
-                            temp_string = "";
-                            printList(temp_string, temp.userpoker, temp);
-                        }
-                        CanIReceive(temp);//判定是否收牌……待完成
-                        temp.isDeal = false;
-                        if (temp.isGet)
-                        {
-                            bool tempbool = calculate.play_receive(Pubpoker, temp.userpoker);//进行收牌进pubpoker
-                            while (true)
-                            {
-                                if (tempbool)
+                                for (int i = 0; i < users.Count; i++)//向每一个玩家展示牌桌
                                 {
-                                    sendmessage.SendData("can," + port.ToString(), ref temp.socket, ref temp.ipep);                                   
-                                    temp.isSend = 1;//提出要收牌实际上也能收牌
+                                    temp_string = "Pub,";
+                                    printList(temp_string, Pubpoker, users[i]);
                                 }
-                                else
+                                temp_string = "";
+                                printList(temp_string, temp.userpoker, temp);
+                                temp_string = "pokercount,";
+                                for (int i = 0; i < users.Count; i++)
                                 {
-                                    sendmessage.SendData("cannot," + port.ToString(), ref temp.socket, ref temp.ipep);
-                                    temp.isSend = 2;//提出要收牌实际上不能收牌
+                                    //循环体list[i]
+                                    temp_string = temp_string + users[i].userpoker.Count.ToString() + ",";
                                 }
-                                receivemessage.ReceiveData();
-                                if (temp.isDeal)
-                                    break;
-                            }
-                            temp.isDeal = false;
-                        }
-                        if (temp.isSend==1)
-                        {
-                            //calculate.play_receive(Pubpoker, temp.userpoker);//进行收牌
-                            for (int i = 0; i < users.Count; i++)//向每一个玩家展示牌桌
-                            {
-                                temp_string = "Pub,";
-                                printList(temp_string, Pubpoker, users[i]);
-                            }
-                            temp_string = "pokercount,";
-                            for (int i = 0; i < users.Count; i++)
-                            {
-                                //循环体list[i]
-                                temp_string = temp_string + users[i].userpoker.Count.ToString() + ",";
+
+                                for (int i = 0; i < users.Count; i++)//向每一个玩家发送其他玩家的牌数
+                                {
+                                    printCount(temp_string, users[i]);
+                                }
+                                temp_string = "";
+                                printList(temp_string, temp.userpoker, temp);
                             }
                           
-                            for (int i = 0; i < users.Count; i++)//向每一个玩家发送其他玩家的牌数
+                            CanIReceive(temp);//判定是否收牌……待完成
+                            temp.isDeal = false;
+                            if (temp.isGet)
                             {
-                                printCount(temp_string, users[i]);
+                                bool tempbool = calculate.play_receive(Pubpoker, temp.userpoker);//进行收牌进pubpoker
+                                while (true)
+                                {
+                                    if (tempbool)
+                                    {
+                                        sendmessage.SendData("can," + port.ToString(), ref temp.socket, ref temp.ipep);
+                                        temp.isSend = 1;//提出要收牌实际上也能收牌
+                                    }
+                                    else
+                                    {
+                                        sendmessage.SendData("cannot," + port.ToString(), ref temp.socket, ref temp.ipep);
+                                        temp.isSend = 2;//提出要收牌实际上不能收牌
+                                    }
+                                    receivemessage.ReceiveData();
+                                    if (temp.isDeal)
+                                        break;
+                                }
+                                temp.isDeal = false;
                             }
-                            temp_string = "";
-                            printList(temp_string, temp.userpoker, temp);
-                            if (temp.Mark == 1)//把该玩家上家的isPut改成true
-                                users[playernumber - 1].isPut = true;
-                            else
-                                users[temp.Mark - 2].isPut = true;
-                            temp.isPut = false;//收牌成功可以继续出牌，为temp.isPut赋false值,那么下家此时将无法出牌也就是一下轮var temp那个循环将被跳过
+                            if (temp.isSend == 1)
+                            {
+                                //calculate.play_receive(Pubpoker, temp.userpoker);//进行收牌
+                                for (int i = 0; i < users.Count; i++)//向每一个玩家展示牌桌
+                                {
+                                    temp_string = "Pub,";
+                                    printList(temp_string, Pubpoker, users[i]);
+                                }
+                                temp_string = "pokercount,";
+                                for (int i = 0; i < users.Count; i++)
+                                {
+                                    //循环体list[i]
+                                    temp_string = temp_string + users[i].userpoker.Count.ToString() + ",";
+                                }
+
+                                for (int i = 0; i < users.Count; i++)//向每一个玩家发送其他玩家的牌数
+                                {
+                                    printCount(temp_string, users[i]);
+                                }
+                                temp_string = "";
+                                printList(temp_string, temp.userpoker, temp);
+                                if (temp.Mark == 1)//把该玩家上家的isPut改成true
+                                    users[playernumber - 1].isPut = true;
+                                else
+                                    users[temp.Mark - 2].isPut = true;
+                                temp.isPut = false;//收牌成功可以继续出牌，为temp.isPut赋false值,那么下家此时将无法出牌也就是一下轮var temp那个循环将被跳过
+                            }
+                           
+                            temp.isGet = false;
+                            if (temp.isSend == 2)
+                                break;
                         }
-                        temp.isGet = false;
                     }                  
                     else//第一次仅发牌
                     {
