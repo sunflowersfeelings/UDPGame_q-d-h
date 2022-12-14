@@ -82,11 +82,11 @@ namespace Game
                     {
                         int x = Pubpoker.Count();
                         int y = Pubpoker.IndexOf(m);
-                        for (int s = y; s < x - y; s++)
-                        {
-                            userpoker.Add(Pubpoker[s]);//将收回的手牌放入玩家的牌堆中
-                        }
-                        Pubpoker.RemoveRange(y, x-y-1);//如有相同牌，则去除牌堆中相应的牌
+                    for (int s = y; s < x; s++)
+                    {
+                        userpoker.Add(Pubpoker[s]);//将收回的手牌放入玩家的牌堆中
+                    }
+                        Pubpoker.RemoveRange(y, x-y);//如有相同牌，则去除牌堆中相应的牌
                         return true;
                     }
                 
@@ -94,7 +94,7 @@ namespace Game
             
             return false;
         }
-   
+    
         public bool game_over(List<int> userpoker, int user_isFailedFlag)//判断游戏是否结束
         {
             //返回值bool：true---游戏结束  false---游戏继续

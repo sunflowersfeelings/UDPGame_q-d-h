@@ -342,7 +342,7 @@ namespace Game
                         temp.isDeal = false;
                         if (temp.isGet)
                         {
-                            bool tempbool = calculate.play_receive(Pubpoker, temp.userpoker);//进行出牌
+                            bool tempbool = calculate.play_receive(Pubpoker, temp.userpoker);//进行收牌进pubpoker
                             while (true)
                             {
                                 if (tempbool)
@@ -363,7 +363,7 @@ namespace Game
                         }
                         if (temp.isSend==1)
                         {
-                            calculate.play_receive(Pubpoker, temp.userpoker);//进行收牌
+                            //calculate.play_receive(Pubpoker, temp.userpoker);//进行收牌
                             for (int i = 0; i < users.Count; i++)//向每一个玩家展示牌桌
                             {
                                 temp_string = "Pub,";
@@ -382,7 +382,10 @@ namespace Game
                             }
                             temp_string = "";
                             printList(temp_string, temp.userpoker, temp);
-                           
+                            if (temp.Mark == 1)//把该玩家上家的isPut改成true
+                                users[playernumber - 1].isPut = true;
+                            else
+                                users[temp.Mark - 2].isPut = true;
                             temp.isPut = false;//收牌成功可以继续出牌，为temp.isPut赋false值,那么下家此时将无法出牌也就是一下轮var temp那个循环将被跳过
                         }
                         temp.isGet = false;

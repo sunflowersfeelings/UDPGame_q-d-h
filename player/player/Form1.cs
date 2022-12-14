@@ -296,7 +296,7 @@ namespace player
                     {
                         isReceive = false;
                         userpoker.Clear();
-                        for (int i = 1; i < newstr.Length; i++)
+                        for (int i = 0; i < newstr.Length; i++)
                         {
                             isGetPoker = false;
                             foreach (int m in userpoker)//遍历牌堆中牌寻找是否有相同牌
